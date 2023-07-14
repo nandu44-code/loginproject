@@ -26,8 +26,12 @@
             <a class="nav-link" href="#">Services</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="{% url  'loginn'%}">Contact</a>
           </li>
+          <div style="margin-left: auto;">
+            <a href="{% url  'user_logout'%}" class="btn btn-danger" style="margin-left: 850px;">Log out</a>
+          </div>
+         
         </ul>
       </div>
     </div>
@@ -40,7 +44,7 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="https://cdn.dribbble.com/users/1121893/screenshots/5725986/dribbble-eline_ye_4x.jpg" class="d-block w-100" alt="...">
+        <img src="https://ichef.bbci.co.uk/news/976/cpsprodpb/C6DC/production/_107080905_gettyimages-654239286.jpg.webp" class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-md-block">
           <h5>UI/UX DESIGN</h5>
         </div>

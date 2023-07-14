@@ -24,5 +24,4 @@ urlpatterns = [
     path('signup/',views.signuppage,name='signup'),
     path('home/',views.homepage,name='home'),
     path('logout/',views.logoutpage,name='user_logout')
-    
 ]

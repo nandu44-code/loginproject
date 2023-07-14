@@ -2,14 +2,18 @@ from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import cache_control
+
+
 
 def homepage(request):
       if 'username' in request.session:
-           
+               
            return render(request,'home.html')
       else:
            return redirect('loginn')
       
+
 
 
 def signuppage(request):
@@ -31,6 +35,8 @@ def signuppage(request):
             return redirect('loginn')
     return render(request,'signup.html')
 
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def loginpage(request):
       if 'username' in request.session:
            return redirect('home')

@@ -1,14 +1,13 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
+from django.contrib import messages
 
-
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def homepage(request):
       if 'username' in request.session:
-               
+
            return render(request,'home.html')
       else:
            return redirect('loginn')
@@ -25,14 +24,17 @@ def signuppage(request):
          email= request.POST.get('email')
          pass1= request.POST.get('password')
          pass2= request.POST.get('cpassword')
+         if len(pass1)<8:
+              messages.error(request,'password must contain atleast 8 characters')
 
-         if pass1!=pass2:
-              return HttpResponse('password and confirmed passwords are incorrect')
          else:
-            my_user=User.objects.create_user(uname,email,pass1)
-            my_user.save()
+               if pass1!=pass2:
+                     messages.error(request,'password you re-entered is incorrect')
+               else:
+                    my_user=User.objects.create_user(uname,email,pass1)
+                    my_user.save()
 
-            return redirect('loginn')
+                    return redirect('loginn')
     return render(request,'signup.html')
 
 
@@ -50,7 +52,9 @@ def loginpage(request):
                 request.session['username']=uname
                 return redirect('home')
            else:
-                return HttpResponse("username or password is incorrect  ")
+               messages.error(request,'username or password is incorrect!!')
+
+               
 
       return render(request,'login.html')
 def logoutpage(request):

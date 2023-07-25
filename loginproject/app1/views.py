@@ -62,11 +62,11 @@ def loginpage(request):
                
 
       return render(request,'login.html')
+#coming from the urls when calling views.logoutpage
 def logoutpage(request):
-     logout(request)
+     
      if 'username' in request.session:
           logout(request)
           request.session.flush()
      
      return redirect('user_login')
-     

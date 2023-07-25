@@ -1,0 +1,33 @@
+.heading {
+    color: blue;
+    
+}
+
+.container-fluid {
+    margin-top: 120px;
+}
+
+.error-message {
+    display: flex;
+    justify-content: center;
+    background-color: #b6000f;
+    color: #000000;
+    border: 3px solid #f4f4f4;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 60px;
+    margin-left: 400px;
+    margin-right: 400px;
+    border-radius: 4px;
+}
+
+
+.error-message strong {
+    font-weight: bold;
+}
+
+.error-message::before {
+    content: "\f06a";
+    font-family: "Font Awesome";
+    margin-right: 5px;
+}

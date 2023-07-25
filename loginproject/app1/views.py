@@ -4,17 +4,19 @@ from django.contrib.auth import authenticate,login,logout
 from django.views.decorators.cache import cache_control
 from django.contrib import messages
 
+
+#to make it dont go backward
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def homepage(request):
       if 'username' in request.session:
 
            return render(request,'home.html')
       else:
-           return redirect('loginn')
+           return redirect('user_login')
       
 
 
-
+#coming from the urls when calling views.signuppage
 def signuppage(request):
     if 'username' in request.session:
          return redirect('home')
@@ -23,7 +25,7 @@ def signuppage(request):
          uname= request.POST.get('username')
          email= request.POST.get('email')
          pass1= request.POST.get('password')
-         pass2= request.POST.get('cpassword')
+         pass2= request.POST.get('repassword')
          if len(pass1)<8:
               messages.error(request,'password must contain atleast 8 characters')
 
@@ -31,13 +33,16 @@ def signuppage(request):
                if pass1!=pass2:
                      messages.error(request,'password you re-entered is incorrect')
                else:
-                    my_user=User.objects.create_user(uname,email,pass1)
-                    my_user.save()
+                     my_user=User.objects.create_user(uname,email,pass1)
+                     my_user.save()
 
-                    return redirect('loginn')
+                     return redirect('user_login')
+    
+
+     #first loading this signup.html page
     return render(request,'signup.html')
 
-
+#to make it dont go backward use this annotation
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def loginpage(request):
       if 'username' in request.session:
@@ -63,5 +68,5 @@ def logoutpage(request):
           logout(request)
           request.session.flush()
      
-     return redirect('loginn')
+     return redirect('user_login')
      
